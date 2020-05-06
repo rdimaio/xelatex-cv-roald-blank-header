@@ -1,3 +1,5 @@
+% Source template: https://github.com/Roald87/xelatex-cv-roald
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cv-roald}[2017/09/10 My custom CV class v3.0.0]
 \LoadClass[a4paper]{article}
@@ -15,11 +17,11 @@
 
 % Height of the header
 \newlength{\hdrheight}
-\setlength{\hdrheight}{35mm}
+\setlength{\hdrheight}{27mm} % progression: 35->30->28->27
 
 % Vertical space between rows/paragraphs
 \newlength{\vspacepar}
-\setlength{\vspacepar}{0.6\baselineskip}
+\setlength{\vspacepar}{0.5\baselineskip}
 
 % Horizontal space before and after vertical bar (|) between address and 
 % the contact details
@@ -127,6 +129,10 @@
 % a separator between address and contact details
 \newcommand{\sep}{\hspace{\hspaddress} | \hspace{\hspaddress}}
 
+
+
+\definecolor{mainblue}{RGB}{0, 61, 124}
+
 % This places a header on top of the page.
 % #1 First name
 % #2 Last name
@@ -137,7 +143,7 @@
     % Colored bar on top of the page
     \node[
         below right, 
-        fill=main, 
+        fill=white, % was main
         minimum height=\hdrheight, 
         minimum width=\paperwidth, 
         outer sep=0,
@@ -145,22 +151,26 @@
     % Node for the name
     \node[
         anchor=base, 
-        text=white,
+        text=mainblue,
         inner sep=0.25 cm,
       ] (nametext) at (name.base) {%
-        \fontsize{40pt}{32pt}\color{white}%
+        \fontsize{40pt}{32pt}\color{mainblue}%
         {\titlefont #1~}{\titlefont \textbf{#2}\par}
         };
     % Address
     \node[
         anchor=north, 
-        text=white,
+        text=mainblue,
       ] (address) at (nametext.south) {#3\par};
     % Phone/mail/nationality
     \node[
         anchor=north, 
-        text=white,
+        text=mainblue,
       ] at (address.south)  {#4\par};
+      
+    % Line separating header and body
+    \draw (0,0) --(\textwidth,0);
+    
   \end{tikzpicture}
 } 
 
@@ -192,6 +202,20 @@
   {\titlefont\color{title}\huge\bfseries}{\thesection}{0em}{}
 % \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
 \titlespacing*{\section}%
+  {0pt}{1ex plus 0.2ex minus 0.2ex}{-1ex plus 0.1ex minus 0.1ex}
+
+% SUBSECTION FORMATTING
+\titleformat{\subsection}%
+  {\titlefont\color{title}\LARGE\bfseries}{\thesection}{0em}{}
+% \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
+\titlespacing*{\subsection}%
+  {0pt}{1ex plus 0.2ex minus 0.2ex}{-1ex plus 0.1ex minus 0.1ex}
+
+% SUBSUBSECTION FORMATTING
+\titleformat{\subsubsection}%
+  {\titlefont\color{title}\Large\bfseries}{\thesection}{0em}{}
+% \titlespacing{command}{left spacing}{before spacing}{after spacing}[right]
+\titlespacing*{\subsubsection}%
   {0pt}{1ex plus 0.2ex minus 0.2ex}{-1ex plus 0.1ex minus 0.1ex}
 
 % Defines a new command which can be used as a formatter for your Job title and 
